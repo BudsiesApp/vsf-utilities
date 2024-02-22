@@ -29,14 +29,14 @@ function calculateProductTax ({ product, taxClasses, taxCountry = 'PL', taxRegio
 
     product.price_incl_tax = product.price
     product.price_tax = 0
-    product.special_price_incl_tax = 0
+    product.special_price_incl_tax = product.special_price
     product.special_price_tax = 0
 
     if (deprecatedPriceFieldsSupport) {
       /** BEGIN @deprecated - inconsitent naming kept just for the backward compatibility */
       product.priceInclTax = product.price
       product.priceTax = 0
-      product.specialPriceInclTax = 0
+      product.specialPriceInclTax = product.special_price
       product.specialPriceTax = 0
       /** END */
     }
@@ -45,14 +45,14 @@ function calculateProductTax ({ product, taxClasses, taxCountry = 'PL', taxRegio
       for (const configurableChildren of product.configurable_children) {
         configurableChildren.price_incl_tax = configurableChildren.price
         configurableChildren.price_tax = 0
-        configurableChildren.special_price_incl_tax = 0
+        configurableChildren.special_price_incl_tax = configurableChildren.special_price
         configurableChildren.special_price_tax = 0
 
         if (deprecatedPriceFieldsSupport) {
           /** BEGIN @deprecated - inconsitent naming kept just for the backward compatibility */
           configurableChildren.priceInclTax = configurableChildren.price
           configurableChildren.priceTax = 0
-          configurableChildren.specialPriceInclTax = 0
+          configurableChildren.specialPriceInclTax = configurableChildren.special_price
           configurableChildren.specialPriceTax = 0
           /** END */
         }
