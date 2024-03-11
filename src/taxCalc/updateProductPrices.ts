@@ -56,16 +56,13 @@ function updateProductPrices ({
     }
   }
 
-  if (product.special_price && (product.special_price < product.original_price)) {
+  if ((product.special_price || product.special_price === 0) && (product.special_price < product.original_price)) {
     if (!isSpecialPriceActive(product.special_from_date, product.special_to_date)) {
       // out of the dates period
       assignPrice({ product, target: 'special_price', price: null, tax: 0, deprecatedPriceFieldsSupport })
     } else {
       assignPrice({ product, target: 'price', ...specialPriceWithTax, deprecatedPriceFieldsSupport })
     }
-  } else if (product.special_price === 0) {
-    // the same price as original; it's not a promotion
-    assignPrice({ product, target: 'special_price', price: 0, tax: 0, deprecatedPriceFieldsSupport })
   } else {
     assignPrice({ product, target: 'special_price', price: null, tax: 0, deprecatedPriceFieldsSupport })
   }
