@@ -7,14 +7,18 @@ import roundTo from './roundTo';
  * @param isPriceInclTax - determines if price already include tax
  */
 function createSinglePrice(
-  price: number,
+  price: number | null,
   rateFactor: number,
   isPriceInclTax: boolean,
 ) {
-  const _price = isPriceInclTax ? price / (1 + rateFactor) : price;
-  const tax = _price * rateFactor;
+  const _price =
+    isPriceInclTax && price !== null ? price / (1 + rateFactor) : price;
+  const tax = _price !== null ? _price * rateFactor : 0;
 
-  return { price: roundTo(_price, 2), tax: roundTo(tax, 2) };
+  return {
+    price: _price !== null ? roundTo(_price, 2) : null,
+    tax: roundTo(tax, 2),
+  };
 }
 
 export default createSinglePrice;
