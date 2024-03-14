@@ -25,7 +25,7 @@ function assignPrice({
   let priceUpdate = {
     [target]: price,
     [`${target}_tax`]: tax,
-    [`${target}_incl_tax`]: price + tax,
+    [`${target}_incl_tax`]: price !== null ? price + tax : tax,
   };
 
   if (deprecatedPriceFieldsSupport) {
